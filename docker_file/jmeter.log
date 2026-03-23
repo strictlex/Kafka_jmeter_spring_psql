@@ -1,0 +1,33 @@
+2026-03-23 21:55:33,578 INFO o.a.j.u.JMeterUtils: Setting Locale to en_EN
+2026-03-23 21:55:33,620 INFO o.a.j.JMeter: Loading user properties from: /Applications/JMeter/bin/user.properties
+2026-03-23 21:55:33,621 INFO o.a.j.JMeter: Loading system properties from: /Applications/JMeter/bin/system.properties
+2026-03-23 21:55:33,632 INFO o.a.j.JMeter: Copyright (c) 1998-2024 The Apache Software Foundation
+2026-03-23 21:55:33,632 INFO o.a.j.JMeter: Version 5.6.3
+2026-03-23 21:55:33,632 INFO o.a.j.JMeter: java.version=17.0.14
+2026-03-23 21:55:33,632 INFO o.a.j.JMeter: java.vm.name=OpenJDK 64-Bit Server VM
+2026-03-23 21:55:33,632 INFO o.a.j.JMeter: os.name=Mac OS X
+2026-03-23 21:55:33,632 INFO o.a.j.JMeter: os.arch=x86_64
+2026-03-23 21:55:33,633 INFO o.a.j.JMeter: os.version=13.7.8
+2026-03-23 21:55:33,633 INFO o.a.j.JMeter: file.encoding=UTF-8
+2026-03-23 21:55:33,633 INFO o.a.j.JMeter: java.awt.headless=null
+2026-03-23 21:55:33,633 INFO o.a.j.JMeter: Max memory     =1073741824
+2026-03-23 21:55:33,633 INFO o.a.j.JMeter: Available Processors =4
+2026-03-23 21:55:33,652 INFO o.a.j.JMeter: Default Locale=English (EN)
+2026-03-23 21:55:33,652 INFO o.a.j.JMeter: JMeter  Locale=English (EN)
+2026-03-23 21:55:33,652 INFO o.a.j.JMeter: JMeterHome=/Applications/JMeter
+2026-03-23 21:55:33,653 INFO o.a.j.JMeter: user.dir  =/Users/aleksey/.colima/kaf_pg_zoo
+2026-03-23 21:55:33,653 INFO o.a.j.JMeter: PWD       =/Users/aleksey/.colima/kaf_pg_zoo
+2026-03-23 21:55:33,664 INFO o.a.j.JMeter: IP: 192.168.1.241 Name: MBP-Aleksej.Dlink FullName: mbp-aleksej.dlink
+2026-03-23 21:55:33,696 INFO o.a.j.JMeter: Loaded icon properties from org/apache/jmeter/images/icon.properties
+2026-03-23 21:55:34,769 INFO o.a.j.JMeterGuiLauncher: Setting LAF to: com.github.weisj.darklaf.DarkLaf:com.github.weisj.darklaf.theme.SolarizedLightTheme
+2026-03-23 21:55:38,434 INFO o.a.j.r.ClassFinder: Will scan jar /Applications/JMeter/lib/ext/jmeter-plugins-manager-1.11.jar with filter ExtendsClassFilter [parents=[interface org.apache.jmeter.gui.action.Command], inner=false, contains=null, notContains=null]. Consider exposing JMeter plugins via META-INF/services, and add JMeter-Skip-Class-Scanning=true manifest attribute so JMeter can skip classfile scanning
+2026-03-23 21:55:38,793 INFO o.a.j.r.ClassFinder: Will scan jar /Applications/JMeter/lib/ext/jmeter-plugins-graphs-basic-2.0.jar with filter ExtendsClassFilter [parents=[interface org.apache.jmeter.gui.action.Command], inner=false, contains=null, notContains=null]. Consider exposing JMeter plugins via META-INF/services, and add JMeter-Skip-Class-Scanning=true manifest attribute so JMeter can skip classfile scanning
+2026-03-23 21:55:38,805 INFO o.a.j.r.ClassFinder: Will scan jar /Applications/JMeter/lib/ext/jmeter-prometheus-plugin-0.6.0.jar with filter ExtendsClassFilter [parents=[interface org.apache.jmeter.gui.action.Command], inner=false, contains=null, notContains=null]. Consider exposing JMeter plugins via META-INF/services, and add JMeter-Skip-Class-Scanning=true manifest attribute so JMeter can skip classfile scanning
+2026-03-23 21:55:38,945 INFO o.a.j.r.ClassFinder: Will scan jar /Applications/JMeter/lib/ext/jmeter-plugins-casutg-3.1.1.jar with filter ExtendsClassFilter [parents=[interface org.apache.jmeter.gui.action.Command], inner=false, contains=null, notContains=null]. Consider exposing JMeter plugins via META-INF/services, and add JMeter-Skip-Class-Scanning=true manifest attribute so JMeter can skip classfile scanning
+2026-03-23 21:55:39,040 INFO o.a.j.r.ClassFinder: Will scan jar /Applications/JMeter/lib/ext/jmeter-plugins-manager-1.11.jar with filter ExtendsClassFilter [parents=[interface org.apache.jmeter.gui.plugin.MenuCreator], inner=false, contains=null, notContains=null]. Consider exposing JMeter plugins via META-INF/services, and add JMeter-Skip-Class-Scanning=true manifest attribute so JMeter can skip classfile scanning
+2026-03-23 21:55:39,043 INFO o.a.j.r.ClassFinder: Will scan jar /Applications/JMeter/lib/ext/jmeter-plugins-graphs-basic-2.0.jar with filter ExtendsClassFilter [parents=[interface org.apache.jmeter.gui.plugin.MenuCreator], inner=false, contains=null, notContains=null]. Consider exposing JMeter plugins via META-INF/services, and add JMeter-Skip-Class-Scanning=true manifest attribute so JMeter can skip classfile scanning
+2026-03-23 21:55:39,044 INFO o.a.j.r.ClassFinder: Will scan jar /Applications/JMeter/lib/ext/jmeter-prometheus-plugin-0.6.0.jar with filter ExtendsClassFilter [parents=[interface org.apache.jmeter.gui.plugin.MenuCreator], inner=false, contains=null, notContains=null]. Consider exposing JMeter plugins via META-INF/services, and add JMeter-Skip-Class-Scanning=true manifest attribute so JMeter can skip classfile scanning
+2026-03-23 21:55:39,046 INFO o.a.j.r.ClassFinder: Will scan jar /Applications/JMeter/lib/ext/jmeter-plugins-casutg-3.1.1.jar with filter ExtendsClassFilter [parents=[interface org.apache.jmeter.gui.plugin.MenuCreator], inner=false, contains=null, notContains=null]. Consider exposing JMeter plugins via META-INF/services, and add JMeter-Skip-Class-Scanning=true manifest attribute so JMeter can skip classfile scanning
+2026-03-23 21:55:39,191 INFO o.j.r.JARSourceHTTP: Requesting https://jmeter-plugins.org/repo/?installID=mac_os_x-65c49df94079a7af5eb80189220eaf73-gui
+2026-03-23 21:55:42,929 INFO o.j.r.PluginManager: Plugins Status: [jpgc-graphs-basic=2.0, jpgc-casutg=3.1.1, jmeter-studio-oss=0.0.0-STOCK, jpgc-plugins-manager=1.11, jmeter-prometheus=0.6.0, jmeter-core=5.6.3, jmeter-ftp=5.6.3, jmeter-http=5.6.3, jmeter-jdbc=5.6.3, jmeter-jms=5.6.3, jmeter-junit=5.6.3, jmeter-java=5.6.3, jmeter-ldap=5.6.3, jmeter-mail=5.6.3, jmeter-mongodb=5.6.3, jmeter-native=5.6.3, jmeter-tcp=5.6.3, jmeter-components=5.6.3]
+2026-03-23 21:55:42,931 INFO o.j.r.PluginManagerMenuItem: Plugins Manager has upgrades: [jmeter-studio-oss]
