@@ -412,13 +412,13 @@ props.put(&quot;globalCounter&quot;, new AtomicInteger(0))</stringProp>
         </elementProp>
       </ThreadGroup>
       <hashTree>
-        <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Flow Control Action">
+        <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Flow Control Action" enabled="true">
           <intProp name="ActionProcessor.action">1</intProp>
           <intProp name="ActionProcessor.target">0</intProp>
           <stringProp name="ActionProcessor.duration">0</stringProp>
         </TestAction>
         <hashTree>
-          <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer">
+          <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer" enabled="true">
             <doubleProp>
               <name>throughput</name>
               <value>300.0</value>
@@ -442,7 +442,7 @@ props.put(&quot;globalCounter&quot;, new AtomicInteger(0))</stringProp>
           </ModuleController>
           <hashTree/>
         </hashTree>
-        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="kafka_gen_msg" enabled="true">
+        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="TG_5rps">
           <stringProp name="cacheKey">true</stringProp>
           <stringProp name="filename"></stringProp>
           <stringProp name="parameters"></stringProp>
@@ -505,13 +505,13 @@ return &quot;OK&quot;</stringProp>
         </elementProp>
       </ThreadGroup>
       <hashTree>
-        <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Flow Control Action" enabled="true">
+        <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Flow Control Action">
           <intProp name="ActionProcessor.action">1</intProp>
           <intProp name="ActionProcessor.target">0</intProp>
           <stringProp name="ActionProcessor.duration">0</stringProp>
         </TestAction>
         <hashTree>
-          <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer">
+          <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer" enabled="true">
             <doubleProp>
               <name>throughput</name>
               <value>600.0</value>
@@ -535,7 +535,7 @@ return &quot;OK&quot;</stringProp>
           </ModuleController>
           <hashTree/>
         </hashTree>
-        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="kafka_gen_msg" enabled="true">
+        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="TG_10rps">
           <stringProp name="cacheKey">true</stringProp>
           <stringProp name="filename"></stringProp>
           <stringProp name="parameters"></stringProp>
@@ -604,7 +604,7 @@ return &quot;OK&quot;</stringProp>
           <stringProp name="ActionProcessor.duration">0</stringProp>
         </TestAction>
         <hashTree>
-          <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer">
+          <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer" enabled="true">
             <doubleProp>
               <name>throughput</name>
               <value>720.0</value>
@@ -628,7 +628,7 @@ return &quot;OK&quot;</stringProp>
           </ModuleController>
           <hashTree/>
         </hashTree>
-        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="kafka_gen_msg" enabled="true">
+        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="TG_12rps">
           <stringProp name="cacheKey">true</stringProp>
           <stringProp name="filename"></stringProp>
           <stringProp name="parameters"></stringProp>
@@ -677,7 +677,7 @@ return &quot;OK&quot;</stringProp>
         </JSR223Sampler>
         <hashTree/>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="TG_14rps">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="TG_14rps" enabled="true">
         <intProp name="ThreadGroup.num_threads">1</intProp>
         <intProp name="ThreadGroup.ramp_time">0</intProp>
         <longProp name="ThreadGroup.duration">300</longProp>
@@ -697,7 +697,7 @@ return &quot;OK&quot;</stringProp>
           <stringProp name="ActionProcessor.duration">0</stringProp>
         </TestAction>
         <hashTree>
-          <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer">
+          <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer" enabled="true">
             <doubleProp>
               <name>throughput</name>
               <value>840.0</value>
@@ -721,7 +721,7 @@ return &quot;OK&quot;</stringProp>
           </ModuleController>
           <hashTree/>
         </hashTree>
-        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="kafka_gen_msg" enabled="true">
+        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="TG_14rps">
           <stringProp name="cacheKey">true</stringProp>
           <stringProp name="filename"></stringProp>
           <stringProp name="parameters"></stringProp>
