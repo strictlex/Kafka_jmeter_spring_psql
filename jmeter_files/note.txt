@@ -1,5 +1,9 @@
 запуск nogui с html отчетом
 jmeter -n -t kafka_load_test.jmx -l result.jtl -e -o ./report
 
-запуск
+запуск noGUI
 jmeter -n -t kafka_load_test.jmx
+
+
+curl -X POST "http://localhost:8080/api/delay?ms=1000"
+curl -X GET http://localhost:8080/api/delay
