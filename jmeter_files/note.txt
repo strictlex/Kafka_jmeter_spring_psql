@@ -1,0 +1,5 @@
+запуск nogui с html отчетом
+jmeter -n -t kafka_load_test.jmx -l result.jtl -e -o ./report
+
+запуск
+jmeter -n -t kafka_load_test.jmx

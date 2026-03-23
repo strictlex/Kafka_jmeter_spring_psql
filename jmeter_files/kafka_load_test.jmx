@@ -5,6 +5,8 @@
       <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
         <collectionProp name="Arguments.arguments"/>
       </elementProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
     </TestPlan>
     <hashTree>
       <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree">
@@ -118,7 +120,7 @@
         <stringProp name="filename"></stringProp>
       </ResultCollector>
       <hashTree/>
-      <kg.apc.jmeter.vizualizers.CorrectedResultCollector guiclass="kg.apc.jmeter.vizualizers.TransactionsPerSecondGui" testclass="kg.apc.jmeter.vizualizers.CorrectedResultCollector" testname="jp@gc - Transactions per Second">
+      <kg.apc.jmeter.vizualizers.CorrectedResultCollector guiclass="kg.apc.jmeter.vizualizers.TransactionsPerSecondGui" testclass="kg.apc.jmeter.vizualizers.CorrectedResultCollector" testname="Transactions per Second" enabled="true">
         <boolProp name="ResultCollector.error_logging">false</boolProp>
         <objProp>
           <name>saveConfig</name>
@@ -163,9 +165,52 @@
         <boolProp name="exclude_checkbox_state">false</boolProp>
       </kg.apc.jmeter.vizualizers.CorrectedResultCollector>
       <hashTree/>
-      <TestFragmentController guiclass="TestFragmentControllerGui" testclass="TestFragmentController" testname="Kafka_Load_Test"/>
+      <BackendListener guiclass="BackendListenerGui" testclass="BackendListener" testname="Backend Listener" enabled="true">
+        <elementProp name="arguments" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments">
+          <collectionProp name="Arguments.arguments">
+            <elementProp name="graphiteMetricsSender" elementType="Argument">
+              <stringProp name="Argument.name">graphiteMetricsSender</stringProp>
+              <stringProp name="Argument.value">org.apache.jmeter.visualizers.backend.graphite.TextGraphiteMetricsSender</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="graphiteHost" elementType="Argument">
+              <stringProp name="Argument.name">graphiteHost</stringProp>
+              <stringProp name="Argument.value">localhost</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="graphitePort" elementType="Argument">
+              <stringProp name="Argument.name">graphitePort</stringProp>
+              <stringProp name="Argument.value">2003</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="rootMetricsPrefix" elementType="Argument">
+              <stringProp name="Argument.name">rootMetricsPrefix</stringProp>
+              <stringProp name="Argument.value">jmeter.</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="summaryOnly" elementType="Argument">
+              <stringProp name="Argument.name">summaryOnly</stringProp>
+              <stringProp name="Argument.value">true</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="samplersList" elementType="Argument">
+              <stringProp name="Argument.name">samplersList</stringProp>
+              <stringProp name="Argument.value"></stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="percentiles" elementType="Argument">
+              <stringProp name="Argument.name">percentiles</stringProp>
+              <stringProp name="Argument.value">90;95;99</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+          </collectionProp>
+        </elementProp>
+        <stringProp name="classname">org.apache.jmeter.visualizers.backend.graphite.GraphiteBackendListenerClient</stringProp>
+      </BackendListener>
+      <hashTree/>
+      <TestFragmentController guiclass="TestFragmentControllerGui" testclass="TestFragmentController" testname="Kafka_Load_Test" enabled="true"/>
       <hashTree>
-        <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="false">
+        <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
           <collectionProp name="Arguments.arguments">
             <elementProp name="bootstrap_servers" elementType="Argument">
               <stringProp name="Argument.name">bootstrap_servers</stringProp>
@@ -177,10 +222,24 @@
               <stringProp name="Argument.value">message-topic</stringProp>
               <stringProp name="Argument.metadata">=</stringProp>
             </elementProp>
+            <elementProp name="msgUuid" elementType="Argument">
+              <stringProp name="Argument.name">msgUuid</stringProp>
+              <stringProp name="Argument.value">${__UUID}</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
           </collectionProp>
         </Arguments>
         <hashTree/>
-        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="kafka_gen_msg">
+        <CounterConfig guiclass="CounterConfigGui" testclass="CounterConfig" testname="counter" enabled="true">
+          <stringProp name="CounterConfig.start">1</stringProp>
+          <stringProp name="CounterConfig.end"></stringProp>
+          <stringProp name="CounterConfig.incr">1</stringProp>
+          <stringProp name="CounterConfig.name">counter</stringProp>
+          <stringProp name="CounterConfig.format"></stringProp>
+          <boolProp name="CounterConfig.per_user">true</boolProp>
+        </CounterConfig>
+        <hashTree/>
+        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="kafka_gen_msg" enabled="true">
           <stringProp name="cacheKey">true</stringProp>
           <stringProp name="filename"></stringProp>
           <stringProp name="parameters"></stringProp>
@@ -188,21 +247,18 @@
 import java.util.Properties
 import java.util.UUID
 
-// --- Настройки Kafka ---
-String bootstrapServers = &quot;localhost:9092&quot;   // замените на ваш адрес
-String topic = &quot;message-topic&quot;                  // замените на ваш топик
 
-// --- Создание или получение продюсера для этого потока ---
+
 String threadName = Thread.currentThread().getName()
 String producerKey = &quot;kafkaProducer_&quot; + threadName
 
 def producer = props.get(producerKey)
 if (producer == null) {
     Properties kafkaProps = new Properties()
-    kafkaProps.put(&quot;bootstrap.servers&quot;, bootstrapServers)
+    kafkaProps.put(&quot;bootstrap.servers&quot;, vars.get(&quot;bootstrap_servers&quot;))
     kafkaProps.put(&quot;key.serializer&quot;, &quot;org.apache.kafka.common.serialization.StringSerializer&quot;)
     kafkaProps.put(&quot;value.serializer&quot;, &quot;org.apache.kafka.common.serialization.StringSerializer&quot;)
-    // Дополнительные настройки (опционально)
+
     kafkaProps.put(&quot;acks&quot;, &quot;1&quot;)
     kafkaProps.put(&quot;linger.ms&quot;, &quot;0&quot;)
     kafkaProps.put(&quot;batch.size&quot;, &quot;16384&quot;)
@@ -212,61 +268,30 @@ if (producer == null) {
     log.info(&quot;Created producer for &quot; + producerKey)
 }
 
-// --- Генерация сообщения ---
-// Счётчик сообщений для этого потока (хранится в props, ключ unique для потока)
-String counterKey = &quot;counter_&quot; + threadName
-int counter = props.get(counterKey) as Integer ?: 0
-counter++
-props.put(counterKey, counter)
 
-// msg_uuid – случайный UUID
-String msgUuid = UUID.randomUUID().toString()
-// head: false каждое 10-е сообщение
-boolean head = (counter % 10 != 0)   // true для 1..9, false для 10,20,...
+int counter = vars.get(&quot;counter&quot;) as int
+String msgUuid = vars.get(&quot;msgUuid&quot;)
+boolean head = (counter % 10 != 0)  
 
-// Формируем JSON
-String json = String.format(
-    &quot;{ \&quot;msg_uuid\&quot;: \&quot;%s\&quot;, \&quot;head\&quot;: %b, \&quot;method\&quot;: \&quot;POST\&quot;, \&quot;uri\&quot;: \&quot;/post-message\&quot; }&quot;,
-    msgUuid, head
-)
+String json = &quot;&quot;&quot;{ &quot;msg_uuid\&quot;: \&quot;${msgUuid}\&quot;, \&quot;head\&quot;: \&quot;${head}\&quot;, \&quot;method\&quot;: \&quot;POST\&quot;, \&quot;uri\&quot;: \&quot;/post-message\&quot; }&quot;&quot;&quot;
 
-// --- Отправка ---
-producer.send(new ProducerRecord&lt;String, String&gt;(topic, msgUuid, json))
+producer.send(new ProducerRecord&lt;String, String&gt;(vars.get(&quot;topic&quot;), msgUuid, json))
 
-// Возвращаем что-то, чтобы JMeter считал сэмплер успешным (можно просто вернуть &quot;OK&quot;)
 return &quot;OK&quot;</stringProp>
           <stringProp name="scriptLanguage">groovy</stringProp>
         </JSR223Sampler>
         <hashTree/>
-        <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="Debug Sampler">
+        <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="Debug Sampler" enabled="true">
           <boolProp name="displayJMeterProperties">false</boolProp>
           <boolProp name="displayJMeterVariables">true</boolProp>
           <boolProp name="displaySystemProperties">false</boolProp>
         </DebugSampler>
         <hashTree/>
       </hashTree>
-      <JSR223Listener guiclass="TestBeanGUI" testclass="JSR223Listener" testname="JSR223 Listener" enabled="false">
-        <stringProp name="cacheKey">true</stringProp>
-        <stringProp name="filename"></stringProp>
-        <stringProp name="parameters"></stringProp>
-        <stringProp name="script">import org.apache.kafka.clients.producer.KafkaProducer
-
-props.keySet().each { key -&gt;
-    if (key.toString().startsWith(&quot;kafkaProducer_&quot;)) {
-        def producer = props.get(key)
-        if (producer instanceof KafkaProducer) {
-            producer.close()
-            log.info(&quot;Closed producer for &quot; + key)
-        }
-    }
-}</stringProp>
-        <stringProp name="scriptLanguage">groovy</stringProp>
-      </JSR223Listener>
-      <hashTree/>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="TG_5rps">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="TG_5rps" enabled="false">
         <intProp name="ThreadGroup.num_threads">1</intProp>
         <intProp name="ThreadGroup.ramp_time">0</intProp>
-        <longProp name="ThreadGroup.duration">30</longProp>
+        <longProp name="ThreadGroup.duration">300</longProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">false</boolProp>
         <boolProp name="ThreadGroup.scheduler">true</boolProp>
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
@@ -276,13 +301,13 @@ props.keySet().each { key -&gt;
         </elementProp>
       </ThreadGroup>
       <hashTree>
-        <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Flow Control Action">
+        <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Flow Control Action" enabled="true">
           <intProp name="ActionProcessor.action">1</intProp>
           <intProp name="ActionProcessor.target">0</intProp>
           <stringProp name="ActionProcessor.duration">0</stringProp>
         </TestAction>
         <hashTree>
-          <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer">
+          <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer" enabled="true">
             <doubleProp>
               <name>throughput</name>
               <value>300.0</value>
@@ -292,12 +317,12 @@ props.keySet().each { key -&gt;
           </ConstantThroughputTimer>
           <hashTree/>
         </hashTree>
-        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="TG_5rps">
+        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="TG_5rps" enabled="true">
           <boolProp name="TransactionController.parent">true</boolProp>
           <boolProp name="TransactionController.includeTimers">false</boolProp>
         </TransactionController>
         <hashTree>
-          <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Controller">
+          <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Controller" enabled="true">
             <collectionProp name="ModuleController.node_path">
               <stringProp name="764597751">Test Plan</stringProp>
               <stringProp name="65396306">Kafka_Load_Test</stringProp>
@@ -306,14 +331,13 @@ props.keySet().each { key -&gt;
           </ModuleController>
           <hashTree/>
         </hashTree>
-        <JSR223Listener guiclass="TestBeanGUI" testclass="JSR223Listener" testname="JSR223 Listener">
+        <JSR223Listener guiclass="TestBeanGUI" testclass="JSR223Listener" testname="Producer clouser" enabled="true">
           <stringProp name="scriptLanguage">groovy</stringProp>
           <stringProp name="parameters"></stringProp>
           <stringProp name="filename"></stringProp>
           <stringProp name="cacheKey">true</stringProp>
           <stringProp name="script">import org.apache.kafka.clients.producer.KafkaProducer
 
-// Закрываем всех продюсеров, созданных в этой группе
 props.entrySet().each { entry -&gt;
     if (entry.key instanceof String &amp;&amp; entry.key.startsWith(&quot;kafkaProducer_&quot;)) {
         def producer = entry.value
@@ -327,11 +351,11 @@ props.entrySet().each { entry -&gt;
         </JSR223Listener>
         <hashTree/>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="TG_10rps">
-        <intProp name="ThreadGroup.num_threads">1</intProp>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="TG_10rps" enabled="false">
+        <intProp name="ThreadGroup.num_threads">10</intProp>
         <intProp name="ThreadGroup.ramp_time">0</intProp>
-        <longProp name="ThreadGroup.duration">60</longProp>
-        <longProp name="ThreadGroup.delay">30</longProp>
+        <longProp name="ThreadGroup.duration">300</longProp>
+        <longProp name="ThreadGroup.delay">300</longProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">false</boolProp>
         <boolProp name="ThreadGroup.scheduler">true</boolProp>
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
@@ -341,13 +365,13 @@ props.entrySet().each { entry -&gt;
         </elementProp>
       </ThreadGroup>
       <hashTree>
-        <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Flow Control Action">
+        <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Flow Control Action" enabled="true">
           <intProp name="ActionProcessor.action">1</intProp>
           <intProp name="ActionProcessor.target">0</intProp>
           <stringProp name="ActionProcessor.duration">0</stringProp>
         </TestAction>
         <hashTree>
-          <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer">
+          <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer" enabled="true">
             <doubleProp>
               <name>throughput</name>
               <value>600.0</value>
@@ -357,12 +381,12 @@ props.entrySet().each { entry -&gt;
           </ConstantThroughputTimer>
           <hashTree/>
         </hashTree>
-        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="TG_10rps">
+        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="TG_10rps" enabled="true">
           <boolProp name="TransactionController.parent">true</boolProp>
           <boolProp name="TransactionController.includeTimers">false</boolProp>
         </TransactionController>
         <hashTree>
-          <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Controller">
+          <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Controller" enabled="true">
             <collectionProp name="ModuleController.node_path">
               <stringProp name="764597751">Test Plan</stringProp>
               <stringProp name="65396306">Kafka_Load_Test</stringProp>
@@ -371,14 +395,13 @@ props.entrySet().each { entry -&gt;
           </ModuleController>
           <hashTree/>
         </hashTree>
-        <JSR223Listener guiclass="TestBeanGUI" testclass="JSR223Listener" testname="JSR223 Listener">
+        <JSR223Listener guiclass="TestBeanGUI" testclass="JSR223Listener" testname="Producer clouser" enabled="true">
           <stringProp name="scriptLanguage">groovy</stringProp>
           <stringProp name="parameters"></stringProp>
           <stringProp name="filename"></stringProp>
           <stringProp name="cacheKey">true</stringProp>
           <stringProp name="script">import org.apache.kafka.clients.producer.KafkaProducer
 
-// Закрываем всех продюсеров, созданных в этой группе
 props.entrySet().each { entry -&gt;
     if (entry.key instanceof String &amp;&amp; entry.key.startsWith(&quot;kafkaProducer_&quot;)) {
         def producer = entry.value
@@ -392,11 +415,11 @@ props.entrySet().each { entry -&gt;
         </JSR223Listener>
         <hashTree/>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="TG_12rps">
-        <intProp name="ThreadGroup.num_threads">1</intProp>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="TG_12rps" enabled="false">
+        <intProp name="ThreadGroup.num_threads">10</intProp>
         <intProp name="ThreadGroup.ramp_time">0</intProp>
-        <longProp name="ThreadGroup.duration">60</longProp>
-        <longProp name="ThreadGroup.delay">90</longProp>
+        <longProp name="ThreadGroup.duration">300</longProp>
+        <longProp name="ThreadGroup.delay">600</longProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">false</boolProp>
         <boolProp name="ThreadGroup.scheduler">true</boolProp>
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
@@ -406,13 +429,13 @@ props.entrySet().each { entry -&gt;
         </elementProp>
       </ThreadGroup>
       <hashTree>
-        <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Flow Control Action">
+        <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Flow Control Action" enabled="true">
           <intProp name="ActionProcessor.action">1</intProp>
           <intProp name="ActionProcessor.target">0</intProp>
           <stringProp name="ActionProcessor.duration">0</stringProp>
         </TestAction>
         <hashTree>
-          <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer">
+          <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer" enabled="true">
             <doubleProp>
               <name>throughput</name>
               <value>720.0</value>
@@ -422,12 +445,12 @@ props.entrySet().each { entry -&gt;
           </ConstantThroughputTimer>
           <hashTree/>
         </hashTree>
-        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="TG_12rps">
+        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="TG_12rps" enabled="true">
           <boolProp name="TransactionController.parent">true</boolProp>
           <boolProp name="TransactionController.includeTimers">false</boolProp>
         </TransactionController>
         <hashTree>
-          <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Controller">
+          <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Controller" enabled="true">
             <collectionProp name="ModuleController.node_path">
               <stringProp name="764597751">Test Plan</stringProp>
               <stringProp name="65396306">Kafka_Load_Test</stringProp>
@@ -436,14 +459,13 @@ props.entrySet().each { entry -&gt;
           </ModuleController>
           <hashTree/>
         </hashTree>
-        <JSR223Listener guiclass="TestBeanGUI" testclass="JSR223Listener" testname="JSR223 Listener">
+        <JSR223Listener guiclass="TestBeanGUI" testclass="JSR223Listener" testname="Producer clouser" enabled="true">
           <stringProp name="scriptLanguage">groovy</stringProp>
           <stringProp name="parameters"></stringProp>
           <stringProp name="filename"></stringProp>
           <stringProp name="cacheKey">true</stringProp>
           <stringProp name="script">import org.apache.kafka.clients.producer.KafkaProducer
 
-// Закрываем всех продюсеров, созданных в этой группе
 props.entrySet().each { entry -&gt;
     if (entry.key instanceof String &amp;&amp; entry.key.startsWith(&quot;kafkaProducer_&quot;)) {
         def producer = entry.value
@@ -457,11 +479,11 @@ props.entrySet().each { entry -&gt;
         </JSR223Listener>
         <hashTree/>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="TG_14rps">
-        <intProp name="ThreadGroup.num_threads">1</intProp>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="TG_14rps" enabled="false">
+        <intProp name="ThreadGroup.num_threads">10</intProp>
         <intProp name="ThreadGroup.ramp_time">0</intProp>
-        <longProp name="ThreadGroup.duration">60</longProp>
-        <longProp name="ThreadGroup.delay">150</longProp>
+        <longProp name="ThreadGroup.duration">300</longProp>
+        <longProp name="ThreadGroup.delay">900</longProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">false</boolProp>
         <boolProp name="ThreadGroup.scheduler">true</boolProp>
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
@@ -471,13 +493,13 @@ props.entrySet().each { entry -&gt;
         </elementProp>
       </ThreadGroup>
       <hashTree>
-        <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Flow Control Action">
+        <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Flow Control Action" enabled="true">
           <intProp name="ActionProcessor.action">1</intProp>
           <intProp name="ActionProcessor.target">0</intProp>
           <stringProp name="ActionProcessor.duration">0</stringProp>
         </TestAction>
         <hashTree>
-          <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer">
+          <ConstantThroughputTimer guiclass="TestBeanGUI" testclass="ConstantThroughputTimer" testname="Constant Throughput Timer" enabled="true">
             <doubleProp>
               <name>throughput</name>
               <value>840.0</value>
@@ -487,12 +509,12 @@ props.entrySet().each { entry -&gt;
           </ConstantThroughputTimer>
           <hashTree/>
         </hashTree>
-        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="TG_14rps">
+        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="TG_14rps" enabled="true">
           <boolProp name="TransactionController.parent">true</boolProp>
           <boolProp name="TransactionController.includeTimers">false</boolProp>
         </TransactionController>
         <hashTree>
-          <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Controller">
+          <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Controller" enabled="true">
             <collectionProp name="ModuleController.node_path">
               <stringProp name="764597751">Test Plan</stringProp>
               <stringProp name="65396306">Kafka_Load_Test</stringProp>
@@ -501,14 +523,58 @@ props.entrySet().each { entry -&gt;
           </ModuleController>
           <hashTree/>
         </hashTree>
-        <JSR223Listener guiclass="TestBeanGUI" testclass="JSR223Listener" testname="JSR223 Listener">
+        <JSR223Listener guiclass="TestBeanGUI" testclass="JSR223Listener" testname="Producer clouser" enabled="true">
           <stringProp name="scriptLanguage">groovy</stringProp>
           <stringProp name="parameters"></stringProp>
           <stringProp name="filename"></stringProp>
           <stringProp name="cacheKey">true</stringProp>
           <stringProp name="script">import org.apache.kafka.clients.producer.KafkaProducer
 
-// Закрываем всех продюсеров, созданных в этой группе
+props.entrySet().each { entry -&gt;
+    if (entry.key instanceof String &amp;&amp; entry.key.startsWith(&quot;kafkaProducer_&quot;)) {
+        def producer = entry.value
+        if (producer instanceof KafkaProducer) {
+            producer.close()
+            log.info(&quot;Closed producer for &quot; + entry.key)
+            props.remove(entry.key)
+        }
+    }
+}</stringProp>
+        </JSR223Listener>
+        <hashTree/>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Thread Group">
+        <intProp name="ThreadGroup.num_threads">1</intProp>
+        <intProp name="ThreadGroup.ramp_time">1</intProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
+          <intProp name="LoopController.loops">-1</intProp>
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+        </elementProp>
+      </ThreadGroup>
+      <hashTree>
+        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="TG_5rps" enabled="true">
+          <boolProp name="TransactionController.parent">true</boolProp>
+          <boolProp name="TransactionController.includeTimers">false</boolProp>
+        </TransactionController>
+        <hashTree>
+          <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Controller" enabled="true">
+            <collectionProp name="ModuleController.node_path">
+              <stringProp name="764597751">Test Plan</stringProp>
+              <stringProp name="65396306">Kafka_Load_Test</stringProp>
+              <stringProp name="65396306">Kafka_Load_Test</stringProp>
+            </collectionProp>
+          </ModuleController>
+          <hashTree/>
+        </hashTree>
+        <JSR223Listener guiclass="TestBeanGUI" testclass="JSR223Listener" testname="Producer clouser" enabled="true">
+          <stringProp name="scriptLanguage">groovy</stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="script">import org.apache.kafka.clients.producer.KafkaProducer
+
 props.entrySet().each { entry -&gt;
     if (entry.key instanceof String &amp;&amp; entry.key.startsWith(&quot;kafkaProducer_&quot;)) {
         def producer = entry.value

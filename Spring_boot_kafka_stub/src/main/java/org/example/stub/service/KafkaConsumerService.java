@@ -24,7 +24,7 @@ public class KafkaConsumerService {
     private final ObjectMapper objectMapper = new ObjectMapper();
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
 
-    @KafkaListener(topics = "message-topic", concurrency = "3", groupId = "${spring.kafka.consumer.group-id}")
+    @KafkaListener(topics = "message-topic", groupId = "${spring.kafka.consumer.group-id}")
     public void listen(String message){
         String timestamp = LocalDateTime.now().format(FORMATTER);
         log.info("{} - [Read from Kafka] {}", timestamp, message);

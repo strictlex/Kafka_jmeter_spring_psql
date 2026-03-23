@@ -1,3 +1,0 @@
-Label,# Samples,Average,Median,90% Line,95% Line,99% Line,Min,Max,Error %,Throughput,Received KB/sec,Sent KB/sec
-UC_01,1032,52,32,64,92,279,0,3349,"0,000%","4,29217","1,64","0,00"
-TOTAL,1032,52,32,64,92,279,0,3349,"0,000%","4,29217","1,64","0,00"
